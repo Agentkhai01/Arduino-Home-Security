@@ -1,78 +1,90 @@
-#Arduino Nano Password Unlock System
-##with PIR Sensor, 4x4 Keypad, and 16x2 LCD Display)
+# Arduino Nano Password Unlock System
+## With PIR Sensor, 4x4 Keypad, and 16x2 LCD Display
 
-Overview
-This project implements a secure password-based unlock system using an Arduino Nano, featuring motion detection, keypad password entry, and visual feedback via a 16x2 LCD screen.
-When the PIR sensor detects movement, the system prompts for a password. Upon correct entry, a locking mechanism is activated (e.g., a servo motor unlocks).
-The system is designed for applications such as low-cost security systems, smart lockers, or restricted access setups.
+---
 
-System Components
-Arduino Nano — Microcontroller for processing input and controlling outputs.
+## Overview
+This project implements a secure password-based unlocking system using an Arduino Nano, featuring motion detection via a PIR sensor, password input through a 4x4 matrix keypad, and user feedback via a 16x2 LCD display.  
+When motion is detected, the system prompts the user to enter a password. If the correct password is entered, an unlocking mechanism is activated (e.g., a servo motor or electronic lock).
 
-PIR Sensor — Detects motion to activate the password entry system.
+This project can be used for:
+- Low-cost security systems
+- Smart lockers
+- Restricted access setups
 
-4x4 Matrix Keypad — User input device for entering the password.
+---
 
-16x2 LCD Display — Provides user feedback (status messages).
+## Components Used
+- **Arduino Nano**
+- **PIR Motion Sensor**
+- **4x4 Matrix Keypad**
+- **16x2 LCD Display**
+- **Servo Motor** (or Relay + Lock system)
+- **Breadboard and Jumper Wires**
+- **Optional**: Buzzer and LEDs for additional alerts
 
-Servo Motor (or Relay + Lock) — Acts as the locking/unlocking mechanism.
+---
 
-Breadboard and Jumper Wires — For circuit prototyping.
+## Features
+- Motion-activated password entry system
+- Password input masking with `*` characters
+- LCD-based user feedback
+- Auto-reset after successful or failed attempt
+- Compact and low-power design
+- Easily customizable password
 
-(Optional) Buzzer / LEDs — For additional alerts.
+---
 
-Features
-Motion-activated system: triggers only when movement is detected.
+## Circuit Connections
 
-Password-protected unlocking mechanism.
+| Component            | Arduino Pin  |
+| --------------------- | ------------- |
+| PIR Sensor Output     | D12           |
+| LCD RS                | D7            |
+| LCD Enable            | D6            |
+| LCD D4                | D5            |
+| LCD D5                | D4            |
+| LCD D6                | D3            |
+| LCD D7                | D2            |
+| Keypad Row Pins       | A0, A1, A2, A3 |
+| Keypad Column Pins    | A4, A5, D9, D8 |
+| Servo Motor Signal    | D10           |
 
-Password input masking using "*" characters.
+> **Note:** You can adjust pins as needed based on your wiring.
 
-Visual status feedback via LCD.
+---
 
-Auto-reset after successful or failed password attempt.
-
-Compact design using Arduino Nano.
-
-Easily customizable password.
-
-Circuit Design
-Key Connections:
-
-
-Component	Arduino Pin
-PIR Sensor Output	D12
-LCD RS	D7
-LCD Enable	D6
-LCD D4	D5
-LCD D5	D4
-LCD D6	D3
-LCD D7	D2
-Keypad Rows	A0, A1, A2, A3
-Keypad Columns	A4, A5, D9, D8
-Servo Signal Pin	D10
-(Modify pins as per your setup if needed.)
-
-Required Libraries
+## Required Libraries
 Make sure the following libraries are installed in the Arduino IDE:
+- `Keypad.h`
+- `LiquidCrystal.h`
+- `Servo.h`
 
-Keypad.h — For handling keypad inputs.
+They can be installed via the Library Manager.
 
-LiquidCrystal.h — For driving the LCD display.
+---
 
-Servo.h — For controlling the servo motor.
+## Working Principle
+1. **Idle Mode**: System remains idle until motion is detected.
+2. **Motion Detected**: LCD prompts for password entry.
+3. **Password Input**: User enters the password through the keypad.
+4. **Verification**:
+    - If correct ➔ Unlocks the system (e.g., moves servo motor).
+    - If incorrect ➔ Displays "Wrong Password" and resets.
+5. **Auto Reset**: After action completion, system returns to Idle Mode.
 
-Working Principle
-Idle Mode: System waits for motion detection.
+---
 
-Motion Detected: LCD prompts user to enter password.
+## Potential Improvements
+- **EEPROM Storage**: Save password changes permanently.
+- **Lockout System**: Temporarily disable input after multiple wrong attempts.
+- **Buzzer Alarm**: Add buzzer alerts for unauthorized access.
+- **Battery Backup**: Integrate a battery or UPS for continuous operation.
+- **Wi-Fi Connectivity**: Upgrade to ESP32/ESP8266 for remote monitoring.
 
-Password Entry: User inputs password via keypad.
+---
 
-Verification:
+## License
+This project is open-source and free to use under the MIT License.
 
-Correct Password ➔ Servo unlocks for a few seconds.
-
-Incorrect Password ➔ Error message is displayed.
-
-Reset: After action completion or timeout, the system returns to Idle Mode.
+---
